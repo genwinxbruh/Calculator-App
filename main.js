@@ -1,28 +1,63 @@
-const btn = document.querySelectorAll(".btn")
-const screen = document.querySelector(".screen");
-const digits = document.querySelectorAll(".digit");
-const clearScreen = document.querySelector(".clear");
-const backSpace = document.querySelector(".backspace");
-const divide = document.querySelector(".divide");
-const multiply = document.querySelector(".multiply");
-const minus = document.querySelector(".minus");
-const plus = document.querySelector("plus");
-const equals = document.querySelector(".equal")
+let runningTotal = 0;
+let buffer = "0";
+let previousOperator;
 
-// using functions and methods
+const screen = document.querySelector(".calc-screen");
 
-clearScreen.addEventListener("click", function () {
-    screen.textContent = "0"
+document.querySelector('.calc-btns').addEventListener("click", function (event) {
+    buttonClick(event.target.innerText)
 });
 
-digits.forEach(function (currentDigit) {
-    currentDigit.addEventListener("click", function () {
-        if (screen.textContent == 0) {
-            screen.textContent = currentDigit.textContent
-        } else {
-            screen.textContent = screen.textContent + currentDigit.textContent
-        }
-    });
-});
+let buttonClick = function (value) {
+    if (!isNaN(parseInt(value))) {
+        handleNumber(value)
+    } else {
+        handleSymbols(value)
+    }
+    rerender(value)
+}
 
+let handleNumber = function (value) {
+    if (buffer === "0") {
+        buffer = value;
+    } else {
+        buffer += value;
+    }
+};
 
+let handleSymbols = function (value) {
+    switch (value) {
+        case "C":
+            screen.innerText = 0;
+            runningTotal = 0;
+            buffer = "0";
+            previousOperator = null;
+            break;
+        case "←":
+            if (buffer.length >1) {
+                buffer = buffer.substring(0, (buffer.length - 1));
+            } else {
+                screen.innerText = 0;
+                buffer = "0";
+                runningTotal = 0;
+                previousOperator = null;
+            }
+            break;
+        case "=":
+            buffer = runningTotal;
+            // 
+            break;
+    }
+};
+
+let handleMath = function (value) {
+
+}
+
+let flushOperation =function(value) {
+
+}
+
+let rerender = function (value) {
+    screen.innerText = buffer;
+};

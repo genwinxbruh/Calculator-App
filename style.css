@@ -17,16 +17,16 @@
     margin: 0 auto;
 }
 
-.screen{
+.calc-screen{
     background-color: black;
     color: white;
     width: 400px;
     padding: 1.5rem;
-    font-size: 2.5rem;
+    font-size: 40px;
     text-align: right;
 }
 
-.btns {
+.calc-btns {
     width: 400px;
 }
 
@@ -49,9 +49,14 @@
     background-color: rgba(216, 217, 219);
     font-size: 2.5rem;
     font-weight: 500;
+    cursor: pointer;
 }
 .btn:hover{
     background-color: rgba(216, 217, 219, 0.6)
+}
+
+.btn:active{
+    background-color: #bbbcbe;
 }
 
 .orange{
@@ -60,4 +65,8 @@
 }
 .orange:hover{
     background-color: rgba(223, 151, 76, 0.7);
+}
+
+.orange:active{
+    background-color: #dd8d37;
 }
