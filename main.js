@@ -28,7 +28,6 @@ let handleNumber = function (value) {
 let handleSymbols = function (value) {
     switch (value) {
         case "C":
-            screen.innerText = 0;
             runningTotal = 0;
             buffer = "0";
             previousOperator = null;
@@ -37,25 +36,53 @@ let handleSymbols = function (value) {
             if (buffer.length >1) {
                 buffer = buffer.substring(0, (buffer.length - 1));
             } else {
-                screen.innerText = 0;
                 buffer = "0";
                 runningTotal = 0;
                 previousOperator = null;
             }
             break;
         case "=":
-            buffer = runningTotal;
-            // 
+            if (previousOperator === null) {
+                return;
+            }
+            flushOperation(parseInt(buffer));
+            previousOperator = null;
+            buffer = "" + runningTotal;
+            runningTotal = 0;
             break;
+        default:
+            handleMath(value)
     }
 };
 
 let handleMath = function (value) {
+    const intBuffer = parseInt(buffer);
+    if (runningTotal === 0){
+        runningTotal = intBuffer;
+    } else {
+        flushOperation(intBuffer);
+    }
 
+    previousOperator = value;
+
+    buffer ="0";
 }
 
-let flushOperation =function(value) {
-
+let flushOperation =function(intBuffer) {
+    switch (previousOperator) {
+        case "+":
+            runningTotal += intBuffer;
+            break;
+        case "-":
+            runningTotal -= intBuffer;
+            break;
+        case "×":
+            runningTotal *= intBuffer;
+            break;
+        case "÷":
+            runningTotal /= intBuffer;
+            break;
+    }
 }
 
 let rerender = function (value) {
