@@ -6,7 +6,7 @@ const screen = document.querySelector(".calc-screen");
 
 document.querySelector('.calc-btns').addEventListener("click", function (event) {
     buttonClick(event.target.innerText)
-});
+})
 
 let buttonClick = function (value) {
     if (!isNaN(parseInt(value))) {
@@ -23,7 +23,7 @@ let handleNumber = function (value) {
     } else {
         buffer += value;
     }
-};
+}
 
 let handleSymbols = function (value) {
     switch (value) {
@@ -33,7 +33,7 @@ let handleSymbols = function (value) {
             previousOperator = null;
             break;
         case "←":
-            if (buffer.length >1) {
+            if (buffer.length > 1) {
                 buffer = buffer.substring(0, (buffer.length - 1));
             } else {
                 buffer = "0";
@@ -53,11 +53,11 @@ let handleSymbols = function (value) {
         default:
             handleMath(value)
     }
-};
+}
 
 let handleMath = function (value) {
     const intBuffer = parseInt(buffer);
-    if (runningTotal === 0){
+    if (runningTotal === 0) {
         runningTotal = intBuffer;
     } else {
         flushOperation(intBuffer);
@@ -65,10 +65,10 @@ let handleMath = function (value) {
 
     previousOperator = value;
 
-    buffer ="0";
+    buffer = "0";
 }
 
-let flushOperation =function(intBuffer) {
+let flushOperation = function (intBuffer) {
     switch (previousOperator) {
         case "+":
             runningTotal += intBuffer;
@@ -87,4 +87,4 @@ let flushOperation =function(intBuffer) {
 
 let rerender = function (value) {
     screen.innerText = buffer;
-};
+}
